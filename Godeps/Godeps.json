@@ -1,0 +1,79 @@
+{
+	"ImportPath": "github.com/CodiesTeam/codies-server",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v79",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/fsnotify/fsnotify",
+			"Comment": "v1.4.2-1-gbd2828f",
+			"Rev": "bd2828f9f176e52d7222e565abb2d338d3f3c103"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/internal",
+			"Comment": "v1.0.0-1-gb8dc900",
+			"Rev": "b8dc90050f24c1a73a52f107f3f575be67b21b7c"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/redis",
+			"Comment": "v1.0.0-1-gb8dc900",
+			"Rev": "b8dc90050f24c1a73a52f107f3f575be67b21b7c"
+		},
+		{
+			"ImportPath": "github.com/go-sql-driver/mysql",
+			"Comment": "v1.2-198-g0b58b37",
+			"Rev": "0b58b37b664c21f3010e836f1b931e1d0b0b0685"
+		},
+		{
+			"ImportPath": "github.com/golang/glog",
+			"Rev": "23def4e6c14b4da8ac2ed8007337bc5eb5007998"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm",
+			"Comment": "v1.0-25-gbf0e236",
+			"Rev": "bf0e23607840019d62e32e87e9af48e881d74b1e"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm/dialects/mysql",
+			"Comment": "v1.0-25-gbf0e236",
+			"Rev": "bf0e23607840019d62e32e87e9af48e881d74b1e"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/inflection",
+			"Rev": "3272df6c21d04180007eb3349844c89a3856bc25"
+		},
+		{
+			"ImportPath": "github.com/julienschmidt/httprouter",
+			"Comment": "v1.1-34-gd8ff598",
+			"Rev": "d8ff598a019f2c7bad0980917a588193cf26666e"
+		},
+		{
+			"ImportPath": "github.com/mozhata/livereload/colorlog",
+			"Rev": "d6c426a348496d68be641a7f4151574eb1065ecf"
+		},
+		{
+			"ImportPath": "github.com/pborman/uuid",
+			"Comment": "v1.0-15-gb984ec7",
+			"Rev": "b984ec7fa9ff9e428bd0cf0abf429384dfbe3e37"
+		},
+		{
+			"ImportPath": "github.com/urfave/negroni",
+			"Comment": "v0.2.0-65-g3f7ce7b",
+			"Rev": "3f7ce7b928e14ff890b067e5bbbc80af73690a9c"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/bcrypt",
+			"Rev": "5f31782cfb2b6373211f8f9fbf31283fa234b570"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/blowfish",
+			"Rev": "5f31782cfb2b6373211f8f9fbf31283fa234b570"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/unix",
+			"Rev": "9bb9f0998d48b31547d975974935ae9b48c7a03c"
+		}
+	]
+}
