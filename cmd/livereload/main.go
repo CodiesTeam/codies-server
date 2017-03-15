@@ -111,10 +111,14 @@ func (w *watch) watcher(paths []string) {
 		for {
 			select {
 			case event := <-watcher.Events:
+				if strings.Contains(event.Name, "server-go-tmp-umask") {
+					continue
+				}
 				if event.Op == fsnotify.Create {
 					finfo, err := os.Stat(event.Name)
 					if err != nil {
 						logger.Error("os.Stat(%s) err. err: %s", event.Name, err)
+						continue
 					}
 					if finfo.IsDir() {
 						logger.Info("add new floder %s to watcher", event.Name)
