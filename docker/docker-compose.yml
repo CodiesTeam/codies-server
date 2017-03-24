@@ -10,18 +10,19 @@ codies-server:
     - 8888:8888
   links:
     - redis
-    - postgre
+    - mysql
 
 redis:
   image: redis:3.2-alpine
   ports:
     - 6377:6379
 
-postgre:
-  image: postgres:9.2-alpine
+mysql:
+  image: mysql:5.7.17
+  command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
   volumes:
-    - $CODIES_DIR/docker/volumes/postgre:/var/lib/postgresql/data
+    - $CODIES_DIR/docker/volumes/mysql:/var/lib/mysql
   ports:
-    - 5432:5432
+    - 3306:3306
   environment:
-    POSTGRES_PASSWORD: postgre
+    MYSQL_ROOT_PASSWORD: codies-pwd
