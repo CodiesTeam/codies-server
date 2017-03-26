@@ -7,6 +7,11 @@
 	],
 	"Deps": [
 		{
+			"ImportPath": "github.com/astaxie/beego/orm",
+			"Comment": "v1.6.1",
+			"Rev": "1aeb3d90512734def678c7aa9f612fe6f659e6b5"
+		},
+		{
 			"ImportPath": "github.com/fsnotify/fsnotify",
 			"Comment": "v1.4.2-1-gbd2828f",
 			"Rev": "bd2828f9f176e52d7222e565abb2d338d3f3c103"
@@ -31,6 +36,11 @@
 			"Rev": "23def4e6c14b4da8ac2ed8007337bc5eb5007998"
 		},
 		{
+			"ImportPath": "github.com/gopherjs/gopherjs/js",
+			"Comment": "go1.5-64-g78919e0",
+			"Rev": "78919e0ff9540aec8ec7ddf27fbf607ae41abc2f"
+		},
+		{
 			"ImportPath": "github.com/jinzhu/gorm",
 			"Comment": "v1.0-25-gbf0e236",
 			"Rev": "bf0e23607840019d62e32e87e9af48e881d74b1e"
@@ -45,6 +55,11 @@
 			"Rev": "3272df6c21d04180007eb3349844c89a3856bc25"
 		},
 		{
+			"ImportPath": "github.com/jtolds/gls",
+			"Comment": "v4.2.0",
+			"Rev": "8ddce2a84170772b95dd5d576c48d517b22cac63"
+		},
+		{
 			"ImportPath": "github.com/julienschmidt/httprouter",
 			"Comment": "v1.1-34-gd8ff598",
 			"Rev": "d8ff598a019f2c7bad0980917a588193cf26666e"
@@ -57,6 +72,36 @@
 			"ImportPath": "github.com/pborman/uuid",
 			"Comment": "v1.0-15-gb984ec7",
 			"Rev": "b984ec7fa9ff9e428bd0cf0abf429384dfbe3e37"
+		},
+		{
+			"ImportPath": "github.com/smartystreets/assertions",
+			"Comment": "1.6.0-13-ge60cfa7",
+			"Rev": "e60cfa771e3f4d18723a4119f1833898c9c62066"
+		},
+		{
+			"ImportPath": "github.com/smartystreets/assertions/internal/go-render/render",
+			"Comment": "1.6.0-13-ge60cfa7",
+			"Rev": "e60cfa771e3f4d18723a4119f1833898c9c62066"
+		},
+		{
+			"ImportPath": "github.com/smartystreets/assertions/internal/oglematchers",
+			"Comment": "1.6.0-13-ge60cfa7",
+			"Rev": "e60cfa771e3f4d18723a4119f1833898c9c62066"
+		},
+		{
+			"ImportPath": "github.com/smartystreets/goconvey/convey",
+			"Comment": "1.6.2-15-g3c25728",
+			"Rev": "3c2572876754c4669ae7417b219f0b30a29b32c7"
+		},
+		{
+			"ImportPath": "github.com/smartystreets/goconvey/convey/gotest",
+			"Comment": "1.6.2-15-g3c25728",
+			"Rev": "3c2572876754c4669ae7417b219f0b30a29b32c7"
+		},
+		{
+			"ImportPath": "github.com/smartystreets/goconvey/convey/reporting",
+			"Comment": "1.6.2-15-g3c25728",
+			"Rev": "3c2572876754c4669ae7417b219f0b30a29b32c7"
 		},
 		{
 			"ImportPath": "github.com/urfave/negroni",

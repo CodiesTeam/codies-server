@@ -1,6 +1,11 @@
-package models
+package authorize
 
-import "github.com/astaxie/beego/orm"
+import (
+	"fmt"
+
+	"github.com/CodiesTeam/codies-server/server/util/encrypt"
+	"github.com/astaxie/beego/orm"
+)
 
 type LocalAuth struct {
 	UUID     string `orm:"column(uuid);pk"`
@@ -13,15 +18,36 @@ func (t *LocalAuth) TableName() string {
 	return "local_auth"
 }
 
-func init() {
-	orm.RegisterModel(new(LocalAuth))
-}
-
 func NewLocalAuth(uuid, email, phone, pwd string) *LocalAuth {
 	return &LocalAuth{
 		UUID:     uuid,
 		Email:    email,
 		Phone:    phone,
-		Password: pwd,
+		Password: password(uuid, pwd),
 	}
+}
+
+func (l *LocalAuth) isValid() bool {
+	return l.UUID != "" &&
+		l.Password != "" &&
+		(l.Email != "" || l.Phone != "")
+}
+
+// Insert insert to DB
+// TODO: complete , test
+func (l *LocalAuth) Insert() error {
+	if !l.isValid() {
+		return fmt.Errorf("% record %#v is not valid", l.TableName(), l)
+	}
+	o := orm.NewOrm()
+	_, err := o.Insert(l)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// TODO: test it
+func password(uuid, pwd string) string {
+	return encrypt.MD5Sum(uuid, pwd)[:8]
 }

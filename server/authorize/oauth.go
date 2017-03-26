@@ -1,9 +1,7 @@
 /*
 not used for now
 */
-package models
-
-import "github.com/astaxie/beego/orm"
+package authorize
 
 type Oauth struct {
 	UUID       string `orm:"column(uuid);pk"`
@@ -16,6 +14,6 @@ func (t *Oauth) TableName() string {
 	return "oauth"
 }
 
-func init() {
-	orm.RegisterModel(new(Oauth))
-}
+// func init() {
+// 	orm.RegisterModel(new(Oauth))
+// }
