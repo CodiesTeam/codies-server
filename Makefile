@@ -14,4 +14,5 @@ clean_containers:
 	docker rm $$(docker stop $$(docker ps -q -a))
 
 connect_mysql:
-	mysql -h 127.0.0.1 -u root -pcodies-pwd
+	mysql -h 127.0.0.1 -u root -pcodies-pwd codies
+
