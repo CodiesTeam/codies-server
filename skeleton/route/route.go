@@ -22,10 +22,12 @@ func NewRoute(pattern, method string, handle httprouter.Handle) *Route {
 	}
 }
 
-func BuildHandler(routes []*Route) http.Handler {
+func BuildHandler(routes ...[]*Route) http.Handler {
 	router := httprouter.New()
-	for _, route := range routes {
-		router.Handle(route.Method, route.Pattern, route.Handle)
+	for _, rs := range routes {
+		for _, route := range rs {
+			router.Handle(route.Method, route.Pattern, route.Handle)
+		}
 	}
 
 	// TODO: add serverfile route

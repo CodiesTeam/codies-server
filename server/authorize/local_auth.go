@@ -33,6 +33,18 @@ func (l *LocalAuth) isValid() bool {
 		(l.Email != "" || l.Phone != "")
 }
 
+func (l *LocalAuth) GetByEmail(email string) error {
+
+	err := orm.NewOrm().QueryTable(l.TableName()).
+		Filter("email", email).
+		One(l)
+	fmt.Printf("GetByEmail err: %v, l: %#v\n", l)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // Insert insert to DB
 // TODO: complete , test
 func (l *LocalAuth) Insert() error {
