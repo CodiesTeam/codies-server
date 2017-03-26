@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/CodiesTeam/codies-server/server/database/sqldb"
 	"github.com/CodiesTeam/codies-server/skeleton/reply"
 	"github.com/CodiesTeam/codies-server/skeleton/route"
 	"github.com/garyburd/redigo/redis"
@@ -16,11 +15,6 @@ import (
 )
 
 type M map[string]interface{}
-
-func CheckMySQL() {
-	env := sqldb.NewEnv()
-	glog.Infoln(env.HasTable("local_auth"))
-}
 
 func NewRoutes() []*route.Route {
 	return []*route.Route{
