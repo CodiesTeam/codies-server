@@ -8,7 +8,7 @@ import (
 )
 
 type User struct {
-	ID    int    `orm:"column(id);auto"`
+	ID    int    `orm:"column(id);auto" json:"-"`
 	UUID  string `orm:"column(uuid);size(36)"`
 	Name  string `orm:"column(name);size(50)"`
 	Phone string `orm:"column(phone);size(16);null"`

@@ -1,9 +1,3 @@
-# site-demo
-
-基于`docker`搭建的Golang开发套件
-
-内含基于`httprouter`搭建的路由系统 和热编译工具
-
 # install
 
 使用前需要安装`docker` `godep`
@@ -30,6 +24,26 @@ make server     # 启动服务
 make log        # 显示goserver日志
 ```
 其他命令请查看`Makefile`
+
+## mysql配置
+
+* 将`init.sql`复制到`mysql`容器内
+* 进入容器,进入`mysql`服务，手动创建数据库`codies`
+* 进入`codies`数据库，使用`source`命令执行`init.sql`文件内容
+
+```
+# 复制init.sql文件到容器根目录
+docker cp server/init.sql 69ec2f3a1884:/init.sql
+# 进入容器
+docker exec -it 69ec2f3a1884 bash
+# 进入mysql服务
+mysql -uroot -pcodies-pwd
+# 创建codies数据库
+mysql> create database codies;
+# 进入codies数据库，解析init.sql文件
+mysql> use codies;
+mysql> source /init.sql
+```
 
 ## 说明
 
