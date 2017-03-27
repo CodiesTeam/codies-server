@@ -9,11 +9,11 @@ import (
 
 type User struct {
 	ID    int    `orm:"column(id);auto" json:"-"`
-	UUID  string `orm:"column(uuid);size(36)"`
-	Name  string `orm:"column(name);size(50)"`
-	Phone string `orm:"column(phone);size(16);null"`
-	Email string `orm:"column(email);size(45);null"`
-	Bio   string `orm:"column(bio);null"`
+	UUID  string `orm:"column(uuid);size(36)" json:"uuid"`
+	Name  string `orm:"column(name);size(50)" json:"name"`
+	Phone string `orm:"column(phone);size(16);null" json:"phone,omitempty"`
+	Email string `orm:"column(email);size(45);null" json:"email,omitempty"`
+	Bio   string `orm:"column(bio);null" json:"bio,omitempty"`
 }
 
 func (t *User) TableName() string {

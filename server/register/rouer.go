@@ -28,15 +28,16 @@ func register(w http.ResponseWriter, r *http.Request, params httprouter.Params) 
 	err := body.JSONBody(r, &p)
 	if err != nil {
 		glog.Errorf("JSONBody failed: %v", err)
+		reply.Error(w, err)
+		return
 	}
 	glog.Infof("email: %s, pwd: %s", p.Email, p.PWD)
 	user, err := regByEmail(p.Email, p.PWD)
 	if err != nil {
 		glog.Errorf("regByEmail failed: %v", err)
+		reply.Error(w, err)
+		return
 	}
-	response := reply.JSON(map[string]interface{}{"user": user})
-	response(w)
-
-	// response := reply.JSON(M{"wel": "this is powered by httprouter"})
-	// response(w)
+	reply.JSON(w, map[string]interface{}{"user": user})
+	return
 }

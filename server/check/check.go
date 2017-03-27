@@ -47,8 +47,7 @@ func NewRoutes() []*route.Route {
 }
 
 func welcome(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	response := reply.JSON(M{"wel": "this is powered by httprouter"})
-	response(w)
+	reply.JSON(w, M{"wel": "this is powered by httprouter"})
 }
 
 func checkRedis(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -67,19 +66,16 @@ func checkRedis(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	if err != nil {
 		glog.Error(err)
 	}
-	response := reply.JSON(M{"result": fmt.Sprintf("check redis, the value got is %s", v)})
-	response(w)
+	reply.JSON(w, M{"result": fmt.Sprintf("check redis, the value got is %s", v)})
 }
 
 func hi(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	glog.Infof("params: %#v\n", ps)
-	response := reply.JSON(M{"result": fmt.Sprintf("hello %s", ps.ByName("name"))})
-	response(w)
+	reply.JSON(w, M{"result": fmt.Sprintf("hello %s", ps.ByName("name"))})
 }
 
 func matchAll(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	response := reply.JSON(M{"result": fmt.Sprintf("the filepath is %s", ps.ByName("filepath"))})
-	response(w)
+	reply.JSON(w, M{"result": fmt.Sprintf("the filepath is %s", ps.ByName("filepath"))})
 }
 
 func basicAuth(h httprouter.Handle, requiredUser, requiredPassword string) httprouter.Handle {
@@ -99,6 +95,5 @@ func basicAuth(h httprouter.Handle, requiredUser, requiredPassword string) httpr
 	}
 }
 func protected(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	response := reply.JSON(M{"result": "this is protected ~"})
-	response(w)
+	reply.JSON(w, M{"result": "this is protected ~"})
 }

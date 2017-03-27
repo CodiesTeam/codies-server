@@ -4,17 +4,19 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/CodiesTeam/codies-server/skeleton/common"
 )
 
 func JSONBody(req *http.Request, obj interface{}) error {
 	defer req.Body.Close()
 	b, err := ioutil.ReadAll(req.Body)
 	if err != nil {
-		return err
+		panic(err)
 	}
 	err = json.Unmarshal(b, obj)
 	if err != nil {
-		return err
+		return common.InvalidArgumentErr("invalid body: %v", err)
 	}
 	return nil
 }

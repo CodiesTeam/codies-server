@@ -2,8 +2,8 @@ package common
 
 import "fmt"
 
-// Fmt used to format error message
-func Fmt(msgs ...interface{}) string {
+// Format used to format error message
+func Format(msgs ...interface{}) string {
 	if len(msgs) == 0 || msgs == nil {
 		return ""
 	}
