@@ -31,9 +31,10 @@ const (
 func main() {
 	// check.CheckMySQL()
 
+	routers := check.NewRouters()
 	routes := check.NewRoutes()
 	regRoutes := register.NewRoutes()
-	handler := route.BuildHandler(routes, regRoutes)
+	handler := route.BuildHandler(routers, routes, regRoutes)
 
 	glog.Infof("start serving at %s", serverPort)
 	log.Fatal(http.ListenAndServe(":"+serverPort, handler))

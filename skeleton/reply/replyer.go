@@ -30,19 +30,19 @@ func Error(w http.ResponseWriter, err error) {
 	}
 }
 
-// func serverJSON(v interface{}) Replyer {
-// 	return func(w http.ResponseWriter) {
-// 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-// 		w.WriteHeader(http.StatusOK)
-// 		if err := json.NewEncoder(w).Encode(v); err != nil {
-// 			panic(err)
-// 		}
-// 	}
-// }
+func serverJSON(v interface{}) Replyer {
+	return func(w http.ResponseWriter) {
+		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+		w.WriteHeader(http.StatusOK)
+		if err := json.NewEncoder(w).Encode(v); err != nil {
+			panic(err)
+		}
+	}
+}
 
-// func JSON(v interface{}) Replyer {
-// 	return serverJSON(v)
-// }
+func ReplyJSON(v interface{}) Replyer {
+	return serverJSON(v)
+}
 
 // func EmptyJSON() Replyer {
 // 	return serverJSON(nil)
