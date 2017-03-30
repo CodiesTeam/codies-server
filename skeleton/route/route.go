@@ -3,7 +3,8 @@ package route
 import (
 	"net/http"
 
-	"github.com/CodiesTeam/codies-server/skeleton/context"
+	"codies-server/skeleton/context"
+
 	"github.com/julienschmidt/httprouter"
 	"github.com/urfave/negroni"
 )

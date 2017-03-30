@@ -14,11 +14,12 @@ go get github.com/tools/godep
 
 # 启动
 
+最好设置一下环境变量
 ```
 # your the gopath where you place this project
-export FIRST_GOPATH=$HOME/go
+export CURRENT_GOPATH=$HOME/go
 # the absolutely path of this project
-export CODIES_DIR=$FIRST_GOPATH/src/github.com/CodiesTeam/codies-server
+export CODIES_DIR=$CURRENT_GOPATH/src/codies-server
 
 make server     # 启动服务
 make log        # 显示goserver日志

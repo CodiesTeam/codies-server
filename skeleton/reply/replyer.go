@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/CodiesTeam/codies-server/skeleton/common"
+	"codies-server/skeleton/common"
 )
 
 // Replyer write result to r

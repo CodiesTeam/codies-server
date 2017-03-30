@@ -1,11 +1,11 @@
-# export FIRST_GOPATH=$HOME/go
-# export CODIES_DIR=$FIRST_GOPATH/src/github.com/CodiesTeam/codies-server
+# export CURRENT_GOPATH=$HOME/go
+# export CODIES_DIR=$CURRENT_GOPATH/src/codies-server
 codies-server:
   image: golang:1.7.5-alpine
-  working_dir: /go/src/github.com/CodiesTeam/codies-server
+  working_dir: /go/src/codies-server
   command: go run cmd/livereload/main.go -watch=server -o=server -e=vendor,Godeps,docker,cmd
   volumes:
-    - $CODIES_DIR:/go/src/github.com/CodiesTeam/codies-server
+    - $CODIES_DIR:/go/src/codies-server
   ports:
     - 8888:8888
   links:

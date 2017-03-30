@@ -1,6 +1,6 @@
 package context
 
-import "github.com/CodiesTeam/codies-server/skeleton/reply"
+import "codies-server/skeleton/reply"
 
 type Context struct {
 	Input *Param

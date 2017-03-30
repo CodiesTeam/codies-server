@@ -3,7 +3,8 @@ package authorize
 import (
 	"fmt"
 
-	"github.com/CodiesTeam/codies-server/server/util/encrypt"
+	"codies-server/server/util/encrypt"
+
 	"github.com/astaxie/beego/orm"
 )
 

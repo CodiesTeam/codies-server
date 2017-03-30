@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/CodiesTeam/codies-server/skeleton/common"
+	"codies-server/skeleton/common"
 )
 
 func JSONBody(req *http.Request, obj interface{}) error {

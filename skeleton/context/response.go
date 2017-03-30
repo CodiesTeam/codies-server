@@ -3,7 +3,7 @@ package context
 import (
 	"net/http"
 
-	"github.com/CodiesTeam/codies-server/skeleton/reply"
+	"codies-server/skeleton/reply"
 )
 
 type Response struct {

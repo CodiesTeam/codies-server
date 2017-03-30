@@ -1,8 +1,8 @@
 package register
 
 import (
-	"github.com/CodiesTeam/codies-server/server/authorize"
-	"github.com/CodiesTeam/codies-server/server/user"
+	"codies-server/server/authorize"
+	"codies-server/server/user"
 )
 
 const (

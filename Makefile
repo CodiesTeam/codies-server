@@ -4,7 +4,7 @@ vendor:
 
 .PHONY: server
 server:
-	cd ./docker;docker-compose up -d
+	export CODIES_DIR=$$(pwd); cd ./docker;docker-compose up -d
 
 .PHONY: log
 log:
@@ -15,4 +15,3 @@ clean_containers:
 
 connect_mysql:
 	mysql -h 127.0.0.1 -u root -pcodies-pwd codies
-

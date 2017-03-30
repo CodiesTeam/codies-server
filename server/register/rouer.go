@@ -3,9 +3,10 @@ package register
 import (
 	"net/http"
 
-	"github.com/CodiesTeam/codies-server/skeleton/input/body"
-	"github.com/CodiesTeam/codies-server/skeleton/reply"
-	"github.com/CodiesTeam/codies-server/skeleton/route"
+	"codies-server/skeleton/input/body"
+	"codies-server/skeleton/reply"
+	"codies-server/skeleton/route"
+
 	"github.com/golang/glog"
 	"github.com/julienschmidt/httprouter"
 )

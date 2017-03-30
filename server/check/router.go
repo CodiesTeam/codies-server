@@ -1,9 +1,9 @@
 package check
 
 import (
-	"github.com/CodiesTeam/codies-server/skeleton/context"
-	"github.com/CodiesTeam/codies-server/skeleton/reply"
-	"github.com/CodiesTeam/codies-server/skeleton/route"
+	"codies-server/skeleton/context"
+	"codies-server/skeleton/reply"
+	"codies-server/skeleton/route"
 )
 
 func NewRouters() []*route.Router {

@@ -7,8 +7,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/CodiesTeam/codies-server/skeleton/reply"
-	"github.com/CodiesTeam/codies-server/skeleton/route"
+	"codies-server/skeleton/reply"
+	"codies-server/skeleton/route"
+
 	"github.com/garyburd/redigo/redis"
 	"github.com/golang/glog"
 	"github.com/julienschmidt/httprouter"

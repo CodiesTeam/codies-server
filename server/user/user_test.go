@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/CodiesTeam/codies-server/server/user"
+	"codies-server/server/user"
+
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/smartystreets/goconvey/convey"

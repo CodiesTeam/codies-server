@@ -5,11 +5,12 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/CodiesTeam/codies-server/server/authorize"
-	"github.com/CodiesTeam/codies-server/server/check"
-	"github.com/CodiesTeam/codies-server/server/register"
-	"github.com/CodiesTeam/codies-server/server/user"
-	"github.com/CodiesTeam/codies-server/skeleton/route"
+	"codies-server/server/authorize"
+	"codies-server/server/check"
+	"codies-server/server/register"
+	"codies-server/server/user"
+	"codies-server/skeleton/route"
+
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/golang/glog"
