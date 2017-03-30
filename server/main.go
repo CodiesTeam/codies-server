@@ -20,9 +20,15 @@ func init() {
 	flag.Set("logtostderr", "true")
 	flag.Parse()
 
+	// initDB()
+}
+
+func initDB() {
+	glog.Infoln("connect mysql...")
 	orm.RegisterDataBase("default", "mysql", "root:codies-pwd@tcp(mysql:3306)/codies?charset=utf8", 30)
 	orm.RegisterModel(new(user.User))
 	orm.RegisterModel(new(authorize.LocalAuth))
+	glog.Infoln("mysql connected")
 }
 
 const (
@@ -32,10 +38,11 @@ const (
 func main() {
 	// check.CheckMySQL()
 
-	routers := check.NewRouters()
 	routes := check.NewRoutes()
-	regRoutes := register.NewRoutes()
-	handler := route.BuildHandler(routers, routes, regRoutes)
+	regRouters := register.NewRouter()
+
+	routes = append(routes, regRouters...)
+	handler := route.BuildHandler(routes)
 
 	glog.Infof("start serving at %s", serverPort)
 	log.Fatal(http.ListenAndServe(":"+serverPort, handler))

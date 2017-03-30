@@ -25,6 +25,7 @@ func NewRouter(pattern, method string, handle context.ProcessRequest) *Router {
 	}
 }
 
+// TODO: replace Route with Router
 // Route basic route
 type Route struct {
 	Pattern string
@@ -44,18 +45,32 @@ func BuildHandler(routers []*Router, routes ...[]*Route) http.Handler {
 	router := httprouter.New()
 
 	for _, rou := range routers {
-		handle := func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-			ctx := &context.Context{
-				Input: context.NewParam(r, ps),
-				Resp:  context.NewResponse(w),
+		handler := func(r Router) func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+			return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+				ctx := &context.Context{
+					Input: context.NewParam(r, ps),
+					Resp:  context.NewResponse(w),
+				}
+				replyer := rou.Handle(ctx)
+				ctx.Resp.ReplyFunc = replyer
+				ctx.Reply()
+				// replyFunc := rou.Handle(r, ps)
+				// replyFunc(w)
 			}
-			replyer := rou.Handle(ctx)
-			ctx.Resp.ReplyFunc = replyer
-			ctx.Reply()
-			// replyFunc := rou.Handle(r, ps)
-			// replyFunc(w)
-		}
-		router.Handle(rou.Method, rou.Pattern, handle)
+		}(*rou)
+
+		// handle := func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+		// 	ctx := &context.Context{
+		// 		Input: context.NewParam(r, ps),
+		// 		Resp:  context.NewResponse(w),
+		// 	}
+		// 	replyer := rou.Handle(ctx)
+		// 	ctx.Resp.ReplyFunc = replyer
+		// 	ctx.Reply()
+		// 	// replyFunc := rou.Handle(r, ps)
+		// 	// replyFunc(w)
+		// }
+		router.Handle(rou.Method, rou.Pattern, handler)
 	}
 
 	for _, rs := range routes {
@@ -70,10 +85,5 @@ func BuildHandler(routers []*Router, routes ...[]*Route) http.Handler {
 	n := negroni.Classic()
 	n.UseHandler(router)
 	return n
+	// return router
 }
-
-// type Router struct {
-// 	Pattern string
-// 	Method  string
-// 	Handle  httprouter.Handle
-// }
