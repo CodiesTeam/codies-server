@@ -49,11 +49,6 @@ func NewRoutes() []*route.Route {
 			"GET",
 			context.BasicAuth("kang", "123!", protected),
 		),
-		// route.NewRoute(
-		// 	"/protected",
-		// 	"GET",
-		// 	basicAuth(protected, "kang", "123!"),
-		// ),
 	}
 }
 

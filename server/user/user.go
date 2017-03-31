@@ -1,9 +1,11 @@
 package user
 
 import (
+	"codies-server/skeleton/common"
 	"fmt"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/golang/glog"
 	"github.com/pborman/uuid"
 )
 
@@ -50,4 +52,20 @@ func (u *User) Insert() error {
 		return err
 	}
 	return nil
+}
+
+func UserByUUID(uuid string) (*User, error) {
+	sql := fmt.Sprintf(`select * from user where uuid = '%s'`,
+		uuid)
+	glog.V(2).Infof("UserByUUID sql: %s", sql)
+	var user User
+	err := orm.NewOrm().Raw(sql).QueryRow(&user)
+	glog.Infof("UserByUUID, user: %#v, err: %v", user, err)
+	if err != nil {
+		return nil, err
+	}
+	if !user.isValid() {
+		return nil, common.InvalidArgumentErr("user %#v is not valid", user)
+	}
+	return &user, nil
 }

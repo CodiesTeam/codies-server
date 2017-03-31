@@ -39,7 +39,7 @@ func (l *LocalAuth) GetByEmail(email string) error {
 	err := orm.NewOrm().QueryTable(l.TableName()).
 		Filter("email", email).
 		One(l)
-	fmt.Printf("GetByEmail err: %v, l: %#v\n", l)
+	fmt.Printf("GetByEmail err: %v, l: %#v\n", err, l)
 	if err != nil {
 		return err
 	}
