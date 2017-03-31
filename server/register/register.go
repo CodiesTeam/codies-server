@@ -9,14 +9,6 @@ const (
 	randomName = "lu-ren-jia"
 )
 
-func Register() error {
-	// regiser by email
-	// register by phone
-	// register by third part, like github, wechat
-
-	return nil
-}
-
 func regByEmail(email, pwd string) (*user.User, error) {
 	// TODO: check wether email has registered
 	// generate user, and insert to user table

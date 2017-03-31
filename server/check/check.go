@@ -44,6 +44,11 @@ func NewRoutes() []*route.Route {
 			"GET",
 			hello,
 		),
+		route.NewRoute(
+			"/protected",
+			"GET",
+			context.BasicAuth("kang", "123!", protected),
+		),
 		// route.NewRoute(
 		// 	"/protected",
 		// 	"GET",
@@ -116,7 +121,7 @@ func matchAll(ctx *context.Context) reply.Replyer {
 }
 func basicAuth(h httprouter.Handle, requiredUser, requiredPassword string) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-		// Get the Basic Authentication credentials
+		Get the Basic Authentication credentials
 		user, password, hasAuth := r.BasicAuth()
 		glog.Infoln("user, pwd and hasAuth: ", user, password, hasAuth)
 

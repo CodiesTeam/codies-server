@@ -42,14 +42,14 @@ func Err(err error) Replyer {
 	}
 }
 
-// func JSON(w http.ResponseWriter, v interface{}) {
-// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-// 	w.WriteHeader(http.StatusOK)
-// 	if err := json.NewEncoder(w).Encode(v); err != nil {
-// 		panic(err)
-// 	}
-// }
+func BasicAuth() Replyer {
+	return func(w http.ResponseWriter) {
+		w.Header().Set("WWW-Authenticate", "Basic realm=Restricted")
+		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+	}
+}
 
+// TODO: replace Error with Err
 func Error(w http.ResponseWriter, err error) {
 	if common.IsForbiddenError(err) {
 		http.Error(w, "", http.StatusForbidden)
