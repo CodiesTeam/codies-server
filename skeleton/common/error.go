@@ -15,12 +15,12 @@ InvalidArgement err
 
 // BaseErr basic error class
 type BaseErr struct {
-	Code int
-	Msg  string
+	StatusCode int
+	Message    string
 }
 
 func (e *BaseErr) Error() string {
-	return fmt.Sprintf("%v: %v", e.Code, e.Msg)
+	return fmt.Sprintf("%v: %v", e.StatusCode, e.Message)
 }
 
 func NotFoundError(fmtAndArgs ...interface{}) error {
@@ -29,7 +29,7 @@ func NotFoundError(fmtAndArgs ...interface{}) error {
 
 func IsNotFoundError(err error) bool {
 	e, ok := err.(*BaseErr)
-	return ok && e.Code == http.StatusNotFound
+	return ok && e.StatusCode == http.StatusNotFound
 }
 
 func InvalidArgumentErr(fmtAndArgs ...interface{}) error {
@@ -38,7 +38,7 @@ func InvalidArgumentErr(fmtAndArgs ...interface{}) error {
 
 func IsInvalidArgumentError(err error) bool {
 	e, ok := err.(*BaseErr)
-	return ok && e.Code == http.StatusBadRequest
+	return ok && e.StatusCode == http.StatusBadRequest
 }
 
 func ForbiddenError(fmtAndArgs ...interface{}) error {
@@ -47,5 +47,5 @@ func ForbiddenError(fmtAndArgs ...interface{}) error {
 
 func IsForbiddenError(err error) bool {
 	e, ok := err.(*BaseErr)
-	return ok && e.Code == http.StatusForbidden
+	return ok && e.StatusCode == http.StatusForbidden
 }

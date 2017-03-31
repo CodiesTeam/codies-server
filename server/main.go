@@ -20,7 +20,7 @@ func init() {
 	flag.Set("logtostderr", "true")
 	flag.Parse()
 
-	// initDB()
+	initDB()
 }
 
 func initDB() {
@@ -39,7 +39,7 @@ func main() {
 	// check.CheckMySQL()
 
 	routes := check.NewRoutes()
-	regRouters := register.NewRouter()
+	regRouters := register.NewRoute()
 
 	routes = append(routes, regRouters...)
 	handler := route.BuildHandler(routes)

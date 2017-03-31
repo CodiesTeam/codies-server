@@ -62,5 +62,6 @@ func (l *LocalAuth) Insert() error {
 
 // TODO: test it
 func password(uuid, pwd string) string {
-	return encrypt.MD5Sum(uuid, pwd)[:8]
+	salt := "openTheGate"
+	return encrypt.MD5Sum(uuid[8:], pwd, salt)[:8]
 }

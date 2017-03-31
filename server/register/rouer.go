@@ -8,9 +8,9 @@ import (
 	"github.com/golang/glog"
 )
 
-func NewRouter() []*route.Router {
-	return []*route.Router{
-		route.NewRouter(
+func NewRoute() []*route.Route {
+	return []*route.Route{
+		route.NewRoute(
 			"/reg",
 			"POST",
 			register,
@@ -33,7 +33,7 @@ func register(ctx *context.Context) reply.Replyer {
 		glog.Errorf("regByEmail failed: %v", err)
 		return reply.Err(err)
 	}
-	return reply.ReplyJSON(map[string]interface{}{
+	return reply.JSON(map[string]interface{}{
 		"user": user,
 	})
 }

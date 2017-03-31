@@ -20,8 +20,12 @@ func serverJSON(v interface{}) Replyer {
 	}
 }
 
-func ReplyJSON(v interface{}) Replyer {
+func JSON(v interface{}) Replyer {
 	return serverJSON(v)
+}
+
+func EmptyJSON() Replyer {
+	return serverJSON(nil)
 }
 
 func Err(err error) Replyer {
@@ -29,35 +33,31 @@ func Err(err error) Replyer {
 		if common.IsForbiddenError(err) {
 			http.Error(w, "", http.StatusForbidden)
 		} else if common.IsNotFoundError(err) {
-			http.Error(w, err.(*common.BaseErr).Msg, http.StatusNotFound)
+			http.Error(w, err.(*common.BaseErr).Message, http.StatusNotFound)
 		} else if common.IsInvalidArgumentError(err) {
-			http.Error(w, err.(*common.BaseErr).Msg, http.StatusBadRequest)
+			http.Error(w, err.(*common.BaseErr).Message, http.StatusBadRequest)
 		} else {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	}
 }
 
-func JSON(w http.ResponseWriter, v interface{}) {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(v); err != nil {
-		panic(err)
-	}
-}
+// func JSON(w http.ResponseWriter, v interface{}) {
+// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+// 	w.WriteHeader(http.StatusOK)
+// 	if err := json.NewEncoder(w).Encode(v); err != nil {
+// 		panic(err)
+// 	}
+// }
 
 func Error(w http.ResponseWriter, err error) {
 	if common.IsForbiddenError(err) {
 		http.Error(w, "", http.StatusForbidden)
 	} else if common.IsNotFoundError(err) {
-		http.Error(w, err.(*common.BaseErr).Msg, http.StatusNotFound)
+		http.Error(w, err.(*common.BaseErr).Message, http.StatusNotFound)
 	} else if common.IsInvalidArgumentError(err) {
-		http.Error(w, err.(*common.BaseErr).Msg, http.StatusBadRequest)
+		http.Error(w, err.(*common.BaseErr).Message, http.StatusBadRequest)
 	} else {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
-
-// func EmptyJSON() Replyer {
-// 	return serverJSON(nil)
-// }

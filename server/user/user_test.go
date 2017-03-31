@@ -2,7 +2,9 @@ package user_test
 
 import (
 	"fmt"
+	"strconv"
 	"testing"
+	"time"
 
 	"codies-server/server/user"
 
@@ -23,7 +25,7 @@ func TestMain(m *testing.M) {
 func TestUser(t *testing.T) {
 	convey.Convey("test User.Insert", t, func() {
 		u := user.NewUser("testName")
-		u.Email = "test@test.com"
+		u.Email = strconv.Itoa(time.Now().UnixNano()) + "test@test.com"
 		err := u.Insert()
 		convey.So(err, convey.ShouldBeNil)
 	})
