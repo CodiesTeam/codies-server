@@ -9,8 +9,6 @@ import (
 	"github.com/urfave/negroni"
 )
 
-// type ProcessRequest func(*http.Request, httprouter.Params) reply.Replyer
-
 type Route struct {
 	Pattern string
 	Method  string
@@ -29,18 +27,15 @@ func BuildHandler(routers []*Route) http.Handler {
 	router := httprouter.New()
 
 	for _, rou := range routers {
-		rou := rou
-		handler := func(r *Route) func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+		handler := func(route *Route) func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 			return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 				ctx := &context.Context{
 					Input: context.NewParam(r, ps),
 					Resp:  context.NewResponse(w),
 				}
-				replyer := rou.Handle(ctx)
+				replyer := route.Handle(ctx)
 				ctx.Resp.ReplyFunc = replyer
 				ctx.Reply()
-				// replyFunc := rou.Handle(r, ps)
-				// replyFunc(w)
 			}
 		}(rou)
 
