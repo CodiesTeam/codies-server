@@ -9,10 +9,10 @@ const (
 	randomName = "lu-ren-jia"
 )
 
-func regByEmail(email, pwd string) (*user.User, error) {
+func regByEmail(username, email, pwd string) (*user.User, error) {
 	// TODO: check wether email has registered
 	// generate user, and insert to user table
-	u := user.NewUser(randomName)
+	u := user.NewUser(username)
 	u.Email = email
 	// TODO: use rollback
 	err := u.Insert()

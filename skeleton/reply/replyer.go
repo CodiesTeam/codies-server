@@ -30,14 +30,19 @@ func EmptyJSON() Replyer {
 
 func Err(err error) Replyer {
 	return func(w http.ResponseWriter) {
-		if common.IsForbiddenError(err) {
+		e, ok := err.(*common.BaseErr)
+		if !ok {
+			e = common.WrapeInternalError(err)
+		}
+		switch e.StatusCode {
+		case http.StatusInternalServerError:
+			http.Error(w, e.Message, http.StatusInternalServerError)
+		case http.StatusForbidden:
 			http.Error(w, "", http.StatusForbidden)
-		} else if common.IsNotFoundError(err) {
-			http.Error(w, err.(*common.BaseErr).Message, http.StatusNotFound)
-		} else if common.IsInvalidArgumentError(err) {
-			http.Error(w, err.(*common.BaseErr).Message, http.StatusBadRequest)
-		} else {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+		case http.StatusNotFound:
+			http.Error(w, e.Message, http.StatusNotFound)
+		case http.StatusBadRequest:
+			http.Error(w, e.Message, http.StatusBadRequest)
 		}
 	}
 }
@@ -46,18 +51,5 @@ func BasicAuth() Replyer {
 	return func(w http.ResponseWriter) {
 		w.Header().Set("WWW-Authenticate", "Basic realm=Restricted")
 		http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
-	}
-}
-
-// TODO: replace Error with Err
-func Error(w http.ResponseWriter, err error) {
-	if common.IsForbiddenError(err) {
-		http.Error(w, "", http.StatusForbidden)
-	} else if common.IsNotFoundError(err) {
-		http.Error(w, err.(*common.BaseErr).Message, http.StatusNotFound)
-	} else if common.IsInvalidArgumentError(err) {
-		http.Error(w, err.(*common.BaseErr).Message, http.StatusBadRequest)
-	} else {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }

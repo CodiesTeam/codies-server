@@ -23,23 +23,25 @@ func NewRoute(pattern, method string, handle context.ProcessRequest) *Route {
 	}
 }
 
-func BuildHandler(routers []*Route) http.Handler {
+func BuildHandler(routeLists ...[]*Route) http.Handler {
 	router := httprouter.New()
 
-	for _, rou := range routers {
-		handler := func(route *Route) func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-			return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-				ctx := &context.Context{
-					Input: context.NewParam(r, ps),
-					Resp:  context.NewResponse(w),
+	for _, routes := range routeLists {
+		for _, rou := range routes {
+			handler := func(route *Route) func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+				return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+					ctx := &context.Context{
+						Input: context.NewParam(r, ps),
+						Resp:  context.NewResponse(w),
+					}
+					replyer := route.Handle(ctx)
+					ctx.Resp.ReplyFunc = replyer
+					ctx.Reply()
 				}
-				replyer := route.Handle(ctx)
-				ctx.Resp.ReplyFunc = replyer
-				ctx.Reply()
-			}
-		}(rou)
+			}(rou)
 
-		router.Handle(rou.Method, rou.Pattern, handler)
+			router.Handle(rou.Method, rou.Pattern, handler)
+		}
 	}
 
 	// TODO: add serverfile route

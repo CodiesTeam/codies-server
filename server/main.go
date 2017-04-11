@@ -41,8 +41,7 @@ func main() {
 	routes := check.NewRoutes()
 	regRouters := register.NewRoute()
 
-	routes = append(routes, regRouters...)
-	handler := route.BuildHandler(routes)
+	handler := route.BuildHandler(routes, regRouters)
 
 	glog.Infof("start serving at %s", serverPort)
 	log.Fatal(http.ListenAndServe(":"+serverPort, handler))

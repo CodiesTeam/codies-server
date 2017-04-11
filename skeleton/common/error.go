@@ -49,3 +49,11 @@ func IsForbiddenError(err error) bool {
 	e, ok := err.(*BaseErr)
 	return ok && e.StatusCode == http.StatusForbidden
 }
+
+func InternalError(fmtAndArgs ...interface{}) error {
+	return WrapeInternalError(fmtAndArgs...)
+}
+
+func WrapeInternalError(fmtAndArgs ...interface{}) *BaseErr {
+	return &BaseErr{http.StatusInternalServerError, Format(fmtAndArgs...)}
+}
