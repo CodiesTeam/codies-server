@@ -28,6 +28,8 @@ func initDB() {
 	orm.RegisterDataBase("default", "mysql", "root:codies-pwd@tcp(mysql:3306)/codies?charset=utf8", 30)
 	orm.RegisterModel(new(user.User))
 	orm.RegisterModel(new(authorize.LocalAuth))
+	// orm.RegisterModel(new(topic.Post))
+	// orm.RegisterModel(new(praise.Praise))
 	glog.Infoln("mysql connected")
 }
 

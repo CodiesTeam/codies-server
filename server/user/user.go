@@ -18,14 +18,9 @@ type User struct {
 	Bio   string `orm:"column(bio);null" json:"bio,omitempty"`
 }
 
-func (t *User) TableName() string {
+func (u *User) TableName() string {
 	return "user"
 }
-
-// func init() {
-// 	orm.RegisterDataBase("default", "mysql", "root:codies-pwd@tcp(127.0.0.1:3306)/codies?charset=utf8", 30)
-// 	orm.RegisterModel(new(User))
-// }
 
 func NewUser(name string) *User {
 	return &User{
