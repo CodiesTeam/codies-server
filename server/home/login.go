@@ -1,4 +1,4 @@
-package register
+package home
 
 import (
 	"codies-server/server/authorize"

@@ -2,6 +2,7 @@ package topic
 
 import (
 	"codies-server/skeleton/common"
+	"fmt"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -16,15 +17,15 @@ const (
 type PostType int
 
 type Post struct {
-	ID         string `orm:"column(id);pk"`
-	Type       int    `orm:"column(type);null"`
-	Title      string `orm:"column(title);size(200);null"`
-	Content    string `orm:"column(content);null"`
-	AuthorID   string `orm:"column(author_id);size(36)"`
-	ToUsers    string `orm:"column(to_users);size(333);null"`
-	CreatedAt  int64  `orm:"column(created_at)"`
-	ModifiedAt int64  `orm:"column(modified_at)"`
-	DeleteAt   int64  `orm:"column(delete_at);null"`
+	ID         string   `orm:"column(id);pk" json:"id"`
+	Type       PostType `orm:"column(type);null" json:"-"`
+	Title      string   `orm:"column(title);size(200);null" json:"title"`
+	Content    string   `orm:"column(content);null" json:"content"`
+	AuthorID   string   `orm:"column(author_id);size(36)" json:"author_id"`
+	ToUsers    string   `orm:"column(to_users);size(333);null" json:"to_users,omitempty"`
+	CreatedAt  int64    `orm:"column(created_at)" json:"created_at"`
+	ModifiedAt int64    `orm:"column(modified_at)" json:"modified_at"`
+	DeleteAt   int64    `orm:"column(delete_at);null" json:"delete_at,omitempty"`
 }
 
 func (t PostType) String() string {
@@ -44,10 +45,10 @@ func (p *Post) TableName() string {
 	return "post"
 }
 
-func NewPost(typ int, title, content, author string) *Post {
+func NewPost(typ PostType, id, title, content, author string) *Post {
 	now := time.Now()
 	return &Post{
-		ID:         newTopicID(),
+		ID:         id,
 		Type:       typ,
 		Title:      title,
 		Content:    content,
@@ -76,13 +77,32 @@ func (p *Post) Insert() error {
 	return err
 }
 
-/*// GetPostByID retrieves Post by ID. Returns error if
+// GetPostByID retrieves Post by ID. Returns error if
 // ID doesn't exist
-func GetPostByID(id int) (v *Post, err error) {
+func GetPostByID(id string) (*Post, error) {
 	o := orm.NewOrm()
-	v = &Post{ID: id}
-	if err = o.Read(v); err == nil {
-		return v, nil
+	p := &Post{ID: id}
+	if err := o.Read(p); err != nil {
+		return nil, err
 	}
-	return nil, err
-}*/
+	return p, nil
+}
+
+func CountReply(id string) (int, error) {
+	sql := fmt.Sprintf(`select count(id) from %s where id like "%s"`, "post", id)
+	var count int
+	err := orm.NewOrm().Raw(sql).QueryRow(&count)
+	if err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+func addPost(typ PostType, id, title, content, author string) (string, error) {
+	post := NewPost(typ, id, title, content, author)
+	err := post.Insert()
+	if err != nil {
+		return "", err
+	}
+	return post.ID, nil
+}

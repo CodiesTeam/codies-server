@@ -7,7 +7,9 @@ import (
 
 	"codies-server/server/authorize"
 	"codies-server/server/check"
-	"codies-server/server/register"
+	"codies-server/server/home"
+	"codies-server/server/praise"
+	"codies-server/server/topic"
 	"codies-server/server/user"
 	"codies-server/skeleton/route"
 
@@ -28,8 +30,8 @@ func initDB() {
 	orm.RegisterDataBase("default", "mysql", "root:codies-pwd@tcp(mysql:3306)/codies?charset=utf8", 30)
 	orm.RegisterModel(new(user.User))
 	orm.RegisterModel(new(authorize.LocalAuth))
-	// orm.RegisterModel(new(topic.Post))
-	// orm.RegisterModel(new(praise.Praise))
+	orm.RegisterModel(new(topic.Post))
+	orm.RegisterModel(new(praise.Praise))
 	glog.Infoln("mysql connected")
 }
 
@@ -41,9 +43,14 @@ func main() {
 	// check.CheckMySQL()
 
 	routes := check.NewRoutes()
-	regRouters := register.NewRoute()
+	regRoutes := home.NewRoute()
+	topicRoutes := topic.NewRoute()
 
-	handler := route.BuildHandler(routes, regRouters)
+	handler := route.BuildHandler(
+		routes,
+		regRoutes,
+		topicRoutes,
+	)
 
 	glog.Infof("start serving at %s", serverPort)
 	log.Fatal(http.ListenAndServe(":"+serverPort, handler))
