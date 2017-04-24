@@ -6,10 +6,19 @@ func AddTopic(title, content, authorID string) (string, error) {
 }
 
 func AddReply(topicID, content, authorID string) (string, error) {
-	replyCount, err := CountReply(topicID)
+	count, err := CountPost(topicID, ReplyType)
 	if err != nil {
 		return "", err
 	}
-	replyID := newReplyID(topicID, replyCount+1)
+	replyID := newReplyID(topicID, count+1)
 	return addPost(ReplyType, replyID, "", content, authorID)
+}
+
+func AddComment(replyID, content, authorID string) (string, error) {
+	count, err := CountPost(replyID, CommentType)
+	if err != nil {
+		return "", err
+	}
+	commentID := newCommentID(replyID, count+1)
+	return addPost(CommentType, commentID, "", content, authorID)
 }

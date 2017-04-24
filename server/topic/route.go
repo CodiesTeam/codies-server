@@ -19,12 +19,36 @@ func NewRoute() []*route.Route {
 			"GET",
 			topicByID,
 		),
-		// route.NewRoute(
-		// 	"/topic/:topicID/reply/add",
-		// 	"POST",
-		// 	addReply,
-		// ),
+		route.NewRoute(
+			"/topic/:topicID/reply/add",
+			"POST",
+			addReply,
+		),
+		route.NewRoute(
+			"/reply/:replyID/comment/add",
+			"POST",
+			addComment,
+		),
 	}
+}
+
+func addComment(ctx *context.Context) reply.Replyer {
+	var replyID string
+	if err := ctx.Input.Var("replyID", &replyID).Error(); err != nil {
+		return reply.Err(err)
+	}
+	p := Post{}
+	if err := ctx.Input.JSONBody(&p).Error(); err != nil {
+		return reply.Err(err)
+	}
+
+	commentID, err := AddComment(replyID, p.Content, p.AuthorID)
+	if err != nil {
+		return reply.Err(err)
+	}
+	return reply.JSON(map[string]interface{}{
+		"id": commentID,
+	})
 }
 
 func addReply(ctx *context.Context) reply.Replyer {
@@ -37,12 +61,12 @@ func addReply(ctx *context.Context) reply.Replyer {
 		return reply.Err(err)
 	}
 
-	topicID, err := AddReply(topicID, p.Content, p.AuthorID)
+	replyID, err := AddReply(topicID, p.Content, p.AuthorID)
 	if err != nil {
 		return reply.Err(err)
 	}
 	return reply.JSON(map[string]interface{}{
-		"id": topicID,
+		"id": replyID,
 	})
 }
 
@@ -55,7 +79,8 @@ func topicByID(ctx *context.Context) reply.Replyer {
 	if err != nil {
 		return reply.Err(err)
 	}
-	return reply.JSON(common.M{"topic": p})
+	ret := common.M{"topic": p}
+	return reply.JSON(ret)
 }
 
 func addTopic(ctx *context.Context) reply.Replyer {

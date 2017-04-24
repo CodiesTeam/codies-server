@@ -2,11 +2,11 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 
 	"codies-server/server/authorize"
-	"codies-server/server/check"
 	"codies-server/server/home"
 	"codies-server/server/praise"
 	"codies-server/server/topic"
@@ -18,16 +18,23 @@ import (
 	"github.com/golang/glog"
 )
 
+const (
+	serverPort = "8888"
+	// mysqlAddr  = "172.17.0.3:3306"
+	mysqlAddr = "docker_mysql_1:3306"
+)
+
 func init() {
 	flag.Set("logtostderr", "true")
+	flag.Set("v", "2")
 	flag.Parse()
 
-	// initDB()
+	initDB()
 }
 
 func initDB() {
 	glog.Infoln("connect mysql...")
-	orm.RegisterDataBase("default", "mysql", "root:codies-pwd@tcp(mysql:3306)/codies?charset=utf8", 30)
+	orm.RegisterDataBase("default", "mysql", fmt.Sprintf("root:codies-pwd@tcp(%s)/codies?charset=utf8", mysqlAddr), 30)
 	orm.RegisterModel(new(user.User))
 	orm.RegisterModel(new(authorize.LocalAuth))
 	orm.RegisterModel(new(topic.Post))
@@ -35,19 +42,13 @@ func initDB() {
 	glog.Infoln("mysql connected")
 }
 
-const (
-	serverPort = "8888"
-)
-
 func main() {
 	// check.CheckMySQL()
 
-	routes := check.NewRoutes()
 	regRoutes := home.NewRoute()
 	topicRoutes := topic.NewRoute()
 
 	handler := route.BuildHandler(
-		routes,
 		regRoutes,
 		topicRoutes,
 	)
