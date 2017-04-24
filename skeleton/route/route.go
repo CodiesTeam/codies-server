@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"codies-server/skeleton/context"
+	"codies-server/skeleton/kmux"
 
-	"github.com/julienschmidt/httprouter"
 	"github.com/urfave/negroni"
 )
 
@@ -24,12 +24,12 @@ func NewRoute(pattern, method string, handle context.ProcessRequest) *Route {
 }
 
 func BuildHandler(routeLists ...[]*Route) http.Handler {
-	router := httprouter.New()
+	router := kmux.New()
 
 	for _, routes := range routeLists {
 		for _, rou := range routes {
-			handler := func(route *Route) func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-				return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+			handler := func(route *Route) func(w http.ResponseWriter, r *http.Request, ps kmux.Params) {
+				return func(w http.ResponseWriter, r *http.Request, ps kmux.Params) {
 					ctx := &context.Context{
 						Input: context.NewParam(r, ps),
 						Resp:  context.NewResponse(w),
@@ -40,7 +40,7 @@ func BuildHandler(routeLists ...[]*Route) http.Handler {
 				}
 			}(rou)
 
-			router.Handle(rou.Method, rou.Pattern, handler)
+			router.Register(rou.Pattern, rou.Method, handler)
 		}
 	}
 

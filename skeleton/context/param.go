@@ -8,20 +8,23 @@ import (
 	"strings"
 
 	"codies-server/skeleton/common"
-
-	"github.com/julienschmidt/httprouter"
+	"codies-server/skeleton/kmux"
 )
 
 type Param struct {
 	Req  *http.Request
-	vars httprouter.Params
+	vars map[string]string
 	errs []string
 }
 
-func NewParam(req *http.Request, vars httprouter.Params) *Param {
+func NewParam(req *http.Request, vars kmux.Params) *Param {
+	params := make(map[string]string, len(vars))
+	for _, p := range vars {
+		params[p.Key] = p.Value
+	}
 	return &Param{
 		Req:  req,
-		vars: vars,
+		vars: params,
 	}
 }
 
@@ -37,12 +40,20 @@ func (p *Param) Error() error {
 }
 
 func (p *Param) Var(key string, result *string) *Param {
-	var ret string
-	if ret = p.vars.ByName(key); ret == "" {
+	ret, ok := p.vars[key]
+	if !ok {
 		p.AddError(fmt.Sprintf("path var %s not set", key))
 		return p
 	}
 	*result = ret
+	return p
+}
+
+func (p *Param) Optional(key string, result *string) *Param {
+	ret, ok := p.vars[key]
+	if ok {
+		*result = ret
+	}
 	return p
 }
 

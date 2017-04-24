@@ -22,7 +22,7 @@ func init() {
 	flag.Set("logtostderr", "true")
 	flag.Parse()
 
-	initDB()
+	// initDB()
 }
 
 func initDB() {
