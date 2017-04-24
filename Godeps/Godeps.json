@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/CodiesTeam/codies-server",
+	"ImportPath": "codies-server",
 	"GoVersion": "go1.7",
 	"GodepVersion": "v79",
 	"Packages": [
@@ -8,8 +8,8 @@
 	"Deps": [
 		{
 			"ImportPath": "github.com/astaxie/beego/orm",
-			"Comment": "v1.6.1",
-			"Rev": "1aeb3d90512734def678c7aa9f612fe6f659e6b5"
+			"Comment": "v1.8.0",
+			"Rev": "323a1c4214101331a4b71922c23d19b7409ac71f"
 		},
 		{
 			"ImportPath": "github.com/fsnotify/fsnotify",
@@ -41,28 +41,9 @@
 			"Rev": "78919e0ff9540aec8ec7ddf27fbf607ae41abc2f"
 		},
 		{
-			"ImportPath": "github.com/jinzhu/gorm",
-			"Comment": "v1.0-25-gbf0e236",
-			"Rev": "bf0e23607840019d62e32e87e9af48e881d74b1e"
-		},
-		{
-			"ImportPath": "github.com/jinzhu/gorm/dialects/mysql",
-			"Comment": "v1.0-25-gbf0e236",
-			"Rev": "bf0e23607840019d62e32e87e9af48e881d74b1e"
-		},
-		{
-			"ImportPath": "github.com/jinzhu/inflection",
-			"Rev": "3272df6c21d04180007eb3349844c89a3856bc25"
-		},
-		{
 			"ImportPath": "github.com/jtolds/gls",
 			"Comment": "v4.2.0",
 			"Rev": "8ddce2a84170772b95dd5d576c48d517b22cac63"
-		},
-		{
-			"ImportPath": "github.com/julienschmidt/httprouter",
-			"Comment": "v1.1-34-gd8ff598",
-			"Rev": "d8ff598a019f2c7bad0980917a588193cf26666e"
 		},
 		{
 			"ImportPath": "github.com/mozhata/livereload/colorlog",
@@ -107,14 +88,6 @@
 			"ImportPath": "github.com/urfave/negroni",
 			"Comment": "v0.2.0-65-g3f7ce7b",
 			"Rev": "3f7ce7b928e14ff890b067e5bbbc80af73690a9c"
-		},
-		{
-			"ImportPath": "golang.org/x/crypto/bcrypt",
-			"Rev": "5f31782cfb2b6373211f8f9fbf31283fa234b570"
-		},
-		{
-			"ImportPath": "golang.org/x/crypto/blowfish",
-			"Rev": "5f31782cfb2b6373211f8f9fbf31283fa234b570"
 		},
 		{
 			"ImportPath": "golang.org/x/sys/unix",
