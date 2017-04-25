@@ -38,6 +38,20 @@ type Reply struct {
 	Comments []Post `json:"comments"`
 }
 
+func newTopic(post Post, replies []Reply) Topic {
+	return Topic{
+		Post:    post,
+		Replies: replies,
+	}
+}
+
+func newReply(post Post, comments []Post) Reply {
+	return Reply{
+		Post:     post,
+		Comments: comments,
+	}
+}
+
 func (t PostType) String() string {
 	result := "unkown post type"
 	switch t {
@@ -120,6 +134,12 @@ func addPost(typ PostType, id, title, content, author string) (string, error) {
 	return post.ID, nil
 }
 
-// func fullPost(id string)([]Post, error){
-
-// }
+func fullPost(id string) ([]Post, error) {
+	sql := fmt.Sprintf(`select * from post where id like "%s%%" order by id asc;`, id)
+	var result []Post
+	_, err := orm.NewOrm().Raw(sql).QueryRows(&result)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}

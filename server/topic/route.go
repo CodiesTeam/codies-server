@@ -75,7 +75,7 @@ func topicByID(ctx *context.Context) reply.Replyer {
 	if err := ctx.Input.Var("id", &topicID).Error(); err != nil {
 		return reply.Err(err)
 	}
-	p, err := GetPostByID(topicID)
+	p, err := FullTopicByID(topicID)
 	if err != nil {
 		return reply.Err(err)
 	}
